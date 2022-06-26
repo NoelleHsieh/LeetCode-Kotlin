@@ -1,19 +1,20 @@
 class Solution {
     fun rotate(array: IntArray, k: Int): Unit {
-        if (k >= array.size || k == 0 || array.size == 1) return
-        val tailArray = Array(array.size - k) { 0 }
-        var tailIndex = array.size - k
-        for (i in 0 until tailIndex) {
+        if (k == 0 || array.size == 1 || array.size == k) return
+        var divider = if(array.size > k) k else (k % array.size)
+        val tailArray = Array(array.size - divider) { 0 }
+        for (i in 0 until tailArray.size) {
             tailArray[i] = array[i]
-            print(tailArray[i])
+            print(array[i])
         }
-        for (i in array.indices) {
-            if (i < k) {
-                array[i] = array[tailIndex]
-                tailIndex++
-            } else {
-                array[i] = tailArray[i - k]
-            }
+        println()
+        for (i in 0 until divider) {
+            array[i] = array[tailArray.size + i]
+            println(" $i : ${array[array.size - i - 1]}")
+        }
+        for (i in 0 until tailArray.size) {
+            array[i + divider] = tailArray[i]
+            println(" ${i + divider} : ${array[i + divider]}")
         }
     }
 }
